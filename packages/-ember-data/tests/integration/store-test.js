@@ -68,7 +68,7 @@ module('integration/store - destroy', function(hooks) {
     this.owner.register('serializer:application', JSONAPISerializer.extend());
   });
 
-  test("destroying record during find doesn't cause error", function(assert) {
+  test("destroying record during find doesn't cause error", async function(assert) {
     assert.expect(0);
     let done = assert.async();
 
@@ -90,7 +90,8 @@ module('integration/store - destroy', function(hooks) {
     let type = 'car';
     let id = 1;
 
-    return run(() => store.findRecord(type, id).then(done, done));
+    await run(() => store.findRecord(type, id));
+    done();
   });
 
   testInDebug('find calls do not resolve when the store is destroyed', async function(assert) {
